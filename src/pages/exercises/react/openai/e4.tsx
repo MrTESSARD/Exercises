@@ -6,19 +6,21 @@ import Button from "react-bootstrap/Button";
 export default function Index() {
   const jsxCode = `
   export default function Index() {
-    const handleClick = () => setHide(!hide);
-    const [hide, setHide] = useState(true);
-    const element = <div>Element à cacher</div>;
+    const [but, setBut] = useState(false);
+    const handleClick = () => {
+      setBut(true);
+    };
     return (
       <div>
-        <h1>Show/Hide Element on Screen</h1>
-        <h3>Users</h3>
-        {hide && element}
-        <Button variant="secondary" onClick={handleClick}>
-          Chacher
+        <h1>Disable a button</h1>
+        <Button onClick={handleClick} disabled={but}>
+          Désactiver 
         </Button>
+  
+        {code}
       </div>
     );
+  }
     
     `;
   const code = (
@@ -30,16 +32,17 @@ export default function Index() {
     </div>
   );
 
-  const handleClick = () => setHide(!hide);
-  const [hide, setHide] = useState(true);
-  const element = <div>Element à cacher</div>;
+  const [but, setBut] = useState(false);
+
+  const handleClick = () => {
+    setBut(true);
+  };
+
   return (
     <div>
-      <h1>Show/Hide Element on Screen</h1>
-      <h3>Users</h3>
-      {hide && element}
-      <Button variant="secondary" onClick={handleClick}>
-        Chacher
+      <h1>Disable a button</h1>
+      <Button onClick={handleClick} disabled={but}>
+        Désactiver 
       </Button>
 
       {code}

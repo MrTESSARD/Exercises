@@ -39,7 +39,9 @@ function Index() {
       <Form.Select name="exerciseName" size="sm">
         <option value="e1">Display array of users to browser</option>
         <option value="e2">Show/Hide Element on Screen</option>
-        <option value="e3">Exercise 3</option>
+        <option value="e3">2 way data binding in ReactJS</option>
+        <option value="e4">Disable a button</option>
+        <option value="e5">Update the parent state</option>
       </Form.Select>
       <br />
 
