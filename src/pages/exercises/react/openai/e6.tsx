@@ -3,11 +3,15 @@ import SyntaxHighlighter from "react-syntax-highlighter";
 import { docco } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import Button from "react-bootstrap/Button";
 
-function Enfant({ text }) {
-  const handleClick = () => {
-    text("Parent est mis à jour");
-  };
-  return <Button onClick={handleClick}>Mettre à jour Parent</Button>;
+function Parent({ children }) {
+  
+  return (
+  <div>
+    <div>Parent</div>
+    <div>Children : {children}</div>
+  </div>
+
+  )
 }
 export default function Index() {
   const jsxCode = `
@@ -41,13 +45,16 @@ export default function Index() {
   );
 
   const [message, setMessage] = useState("Text original");
+  function Child(){return "Child"}
 
   return (
     <div>
       <h1>Dynamically add child components (React Children)</h1>
       <h3>{message}</h3>
 
-      <Enfant text={(text) => setMessage(text)} />
+      <Parent>
+      <Child/>
+        </Parent>
 
       {code}
     </div>

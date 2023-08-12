@@ -42,6 +42,10 @@ function Index() {
         <option value="e3">2 way data binding in ReactJS</option>
         <option value="e4">Disable a button</option>
         <option value="e5">Update the parent state</option>
+        <option value="e6">Dynamically add child components (React Children)</option>
+        <option value="e7">Sum of Two Numbers</option>
+        <option value="e8">Create Counter App</option>
+        <option value="e9">Fetch data from an API</option>
       </Form.Select>
       <br />
 
