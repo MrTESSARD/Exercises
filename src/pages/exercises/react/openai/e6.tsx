@@ -4,35 +4,36 @@ import { docco } from "react-syntax-highlighter/dist/esm/styles/hljs";
 import Button from "react-bootstrap/Button";
 
 function Parent({ children }) {
-  
   return (
-  <div>
-    <div>Parent</div>
-    <div>Children : {children}</div>
-  </div>
-
-  )
+    <div>
+      <div>Parent</div>
+      <div>Children : {children}</div>
+    </div>
+  );
 }
 export default function Index() {
   const jsxCode = `
-  function Enfant({ text }) {
-    const handleClick = () => {
-      text("Parent est mis à jour");
-    };
-    return <Button onClick={handleClick}>Mettre à jour Parent</Button>;
+  function Parent({ children }) {
+    return (
+    <div>
+      <div>Parent</div>
+      <div>Children : {children}</div>
+    </div>
+    )
   }
-  
+
   export default function Index() {
-    const [message, setMessage] = useState("Text original");
+    function Child(){return "Child"}
     return (
       <div>
-        <h1>Disable a button</h1>
-        <h3>{message}</h3>
-        <Enfant text={(text) => setMessage(text)} />
-
+        <h1>Dynamically add child components (React Children)</h1>
+        <Parent>
+        <Child/>
+          </Parent>
       </div>
     );
   }
+  
     
     `;
   const code = (
@@ -44,17 +45,17 @@ export default function Index() {
     </div>
   );
 
-  const [message, setMessage] = useState("Text original");
-  function Child(){return "Child"}
+  function Child() {
+    return "Child";
+  }
 
   return (
     <div>
       <h1>Dynamically add child components (React Children)</h1>
-      <h3>{message}</h3>
 
       <Parent>
-      <Child/>
-        </Parent>
+        <Child />
+      </Parent>
 
       {code}
     </div>
