@@ -1,56 +1,192 @@
-import React from 'react';
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
-import { useRouter } from 'next/router';
+import React, { useState } from "react";
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
+import { useRouter } from "next/router";
 
 function Index() {
   const router = useRouter();
+  const [selectedTechnology, setSelectedTechnology] = useState(""); // Nouvelle variable
+  const [selectedSource, setSelectedSource] = useState(""); // Nouvelle variable
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Obtenir les valeurs sélectionnées dans les champs de sélection
-    const technology = e.target.technology.value;
-    const source = e.target.source.value;
-    const exerciseName = e.target.exerciseName.value;
-
-    // Créer l'URL vers la page de l'application Next avec les paramètres sélectionnés
+    let technology = selectedTechnology; // Utilisation de la variable
+    let source = e.target.source.value;
+    let exerciseName = e.target.exerciseName.value;
     const url = `/exercises/${technology}/${source}/${exerciseName}`;
-
-    // Rediriger vers la page de l'application Next avec les paramètres
     router.push(url);
   };
+  const exercises = {
+    technology: [
+      {
+        name: "Technologie",
+        value: "",
+        source: [
+          {
+            name: "Source",
+            value: "",
+            exerciseName: [
+              {
+                name: "",
+                titre: "Titre",
+              },
+              
+            ],
+          },
+          {
+            name: "contactmentor.com",
+            exerciseName: [
+              {
+                name: "e1",
+                titre: "Display array of users to browser",
+              },
+            ],
+          },
+        ],
+      },
+      {
+        name: "React",
+        value: "react",
+        source: [
+          {
+            name: "Openai",
+            value: "openai",
+            exerciseName: [
+              {
+                name: "e1",
+                titre: "Display array of users to browser",
+              },
+              {
+                name: "e2",
+                titre: "Show/Hide Element on Screen",
+              },
+              {
+                name: "e3",
+                titre: "2 way data binding in ReactJS",
+              },
+              {
+                name: "e4",
+                titre: "Disable a button",
+              },
+              {
+                name: "e5",
+                titre: "Update the parent state",
+              },
+              {
+                name: "e6",
+                titre: "Dynamically add child components (React Children)",
+              },
+              {
+                name: "e7",
+                titre: "Sum of Two Numbers",
+              },
+              {
+                name: "e8",
+                titre: "Create Counter App",
+              },
+              {
+                name: "e9",
+                titre: "Fetch data from an API",
+              },
+              {
+                name: "e10",
+                titre: "Test",
+              },
+              {
+                name: "e11",
+                titre: "Test1",
+              },
+              {
+                name: "e12",
+                titre: "Test2",
+              },
+            ],
+          },
+          {
+            name: "contactmentor.com",
+            value: "contactmentor",
+            exerciseName: [
+              {
+                name: "e1",
+                titre: "Display array of users to browser",
+              },
+            ],
+          },
+        ],
+      },
+      {
+        name: "Next.js",
+        value: "next",
+        source: {
+          name: "Openai",
+          value: "openai",
+          exerciseName: {
+            name: "e1",
+            titre: "Display array of users to browser",
+          },
+        },
+      },
+      {
+        name: "Node.js",
+        value: "node",
+        source: {
+          name: "Openai",
+          value: "openai",
+          exerciseName: {
+            name: "e1",
+            titre: "Display array of users to browser",
+          },
+        },
+      },
+    ],
+  };
+  // Fonction réutilisable pour générer des options
+  const generateOptions = (data) => {
+    return data.map((item, index) => (
+      <option key={index} value={item.value}>
+        {item.name}
+      </option>
+    ));
+  };
+console.log('selectedTechnology', selectedTechnology)  
+return (
+    <div className="container">
+      <Form onSubmit={handleSubmit}>
+      <Form.Select
+  name="technology"
+  size="lg"
+  value={selectedTechnology} // Valeur actuellement sélectionnée
+  onChange={(e) => setSelectedTechnology(e.target.value)}
+>
+  {generateOptions(exercises.technology)}
+</Form.Select>
+        <br />
 
-  return (
-    <div className='container'>
-    <Form onSubmit={handleSubmit}>
-      <Form.Select name="technology" size="lg">
-        <option value="react">React</option>
-        <option value="next">Next.js</option>
-        <option value="node">Node.js</option>
-      </Form.Select>
-      <br />
+        <Form.Select
+          name="source"
+          value={selectedSource} // Valeur actuellement sélectionnée
+          onChange={(e) => setSelectedSource(e.target.value)} // Mise à jour de la variable
+        >
+          {generateOptions(
+            exercises.technology.find(
+              (tech) => tech.value === selectedTechnology
+            )?.source || []
+          )}
+        </Form.Select>
+        <br />
 
-      <Form.Select name="source">
-        <option value="openai">Openai</option>
-        <option value="site2">Source 2</option>
-        <option value="site3">Source 3</option>
-      </Form.Select>
-      <br />
-      <Form.Select name="exerciseName" size="sm">
-        <option value="e1">Display array of users to browser</option>
-        <option value="e2">Show/Hide Element on Screen</option>
-        <option value="e3">2 way data binding in ReactJS</option>
-        <option value="e4">Disable a button</option>
-        <option value="e5">Update the parent state</option>
-        <option value="e6">Dynamically add child components (React Children)</option>
-        <option value="e7">Sum of Two Numbers</option>
-        <option value="e8">Create Counter App</option>
-        <option value="e9">Fetch data from an API</option>
-      </Form.Select>
-      <br />
+        <Form.Select name="exerciseName" size="sm">
+          {generateOptions(
+            exercises.technology
+              .find((tech) => tech.value === selectedTechnology)
+              ?.source?.find((src) => src.value === selectedSource)
+              ?.exerciseName || []
+          )}
+        </Form.Select>
+        <br />
 
-      <Button type="submit">Go to Exercise</Button>
-    </Form>
+        <Button type="submit">Go to Exercise</Button>
+      </Form>
     </div>
   );
 }
