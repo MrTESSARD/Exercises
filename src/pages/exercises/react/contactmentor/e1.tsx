@@ -1,21 +1,18 @@
 import React, { useState } from "react";
 
-
 export default function Index() {
-
   const list = [
     "Banana",
     "Apple",
     "Orange",
     "Mango",
     "Pineapple",
-    "Watermelon"
+    "Watermelon",
   ];
 
   const [filterList, setFilterList] = useState(list);
 
   const handleSearch = (event) => {
-
     if (event.target.value === "") {
       setFilterList(list);
       return;
